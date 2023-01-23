@@ -1,0 +1,37 @@
+version: "3.2"
+services:
+
+  freeswitch:
+    container_name: freeswitch
+    image: safarov/freeswitch
+    ports:
+      - "5060:5060/udp"
+      - "5080:5080/udp"
+      - "64000-64100:64000-64100/udp"
+      - "5066:5066/tcp"
+      - "9443:7443"
+    network_mode: "host"
+
+    environment:
+      SOUND_RATES: "32000:48000"
+      SOUND_TYPES: "en-us-allison"
+      EPMD: "false"
+      DUMPCAP: "false"
+    volumes:
+      - './configs/freeswitch:/etc/freeswitch'
+      - './configs/freeswitch-sounds:/usr/share/freeswitch/sounds'
+      - './configs/freeswitch-logs/freeswitch.log:/var/log/freeswitch/freeswitch.log'
+  fail2ban:
+    container_name: fail2ban
+    image: crazymax/fail2ban:latest
+    network_mode: "host"
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    volumes:
+      - "./configs/fail2ban/data:/data"
+      - "./configs/freeswitch-logs/freeswitch.log:/var/log/freeswitch/freeswitch.log:ro"
+    env_file:
+      - "./configs/fail2ban/fail2ban.env"
+    restart: always
+

@@ -1,0 +1,21 @@
+<include>
+  <user id="1">
+    <params>
+      <param name="password" value="$${default_password}1"/>
+      <param name="vm-password" value="1000"/>
+    </params>
+    <variables>
+      <variable name="toll_allow" value="domestic,international,local"/>
+      <variable name="accountcode" value="1"/>
+      <variable name="user_context" value="default"/>
+      <variable name="effective_caller_id_name" value="Extension 1"/>
+      <variable name="effective_caller_id_number" value="1"/>
+      <variable name="outbound_caller_id_name" value="$${outbound_caller_name}"/>
+      <variable name="outbound_caller_id_number" value="$${outbound_caller_id}"/>
+<!-- Set this to the local IP of your broken Cisco 7940G phone -->
+      <variable name="nat-network-addr" value="192.168.31.219:5060"/>
+      <variable name="sip-force-contact" value="NDLB-connectile-dysfunction"/>
+
+   </variables>
+  </user>
+</include>
